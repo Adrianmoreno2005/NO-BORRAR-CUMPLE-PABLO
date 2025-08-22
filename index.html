@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz 19, Spider-Pablo! - De tu colega</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Comic Neue', cursive, Arial, sans-serif;
+            background: linear-gradient(135deg, #000066, #cc0000);
+            color: #fff;
+            margin: 0;
+            padding: 20px 270px; /* Márgenes laterales para no tapar Spider-Man */
+            text-align: center;
+            overflow-x: hidden;
+        }
+        header {
+            background: rgba(0, 0, 102, 0.95);
+            padding: 40px;
+            border-radius: 12px;
+            border: 3px solid #ff0000;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.8), inset 0 0 10px rgba(255, 255, 255, 0.3);
+            position: relative;
+            animation: glow 2s ease-in-out infinite alternate;
+            z-index: 2;
+        }
+        @keyframes glow {
+            from { box-shadow: 0 0 20px rgba(255, 0, 0, 0.8), inset 0 0 10px rgba(255, 255, 255, 0.3); }
+            to { box-shadow: 0 0 30px rgba(255, 0, 0, 1), inset 0 0 15px rgba(255, 255, 255, 0.5); }
+        }
+        header::before {
+            content: '🕷️';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 120px;
+            opacity: 0.4;
+            z-index: 0;
+        }
+        h1 {
+            color: #ff0000;
+            text-shadow: 3px 3px 6px #000, -2px -2px 4px #fff;
+            font-size: 3.2em;
+            margin: 10px 0;
+            position: relative;
+            z-index: 1;
+        }
+        section {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #000066;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: auto;
+            color: #000;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 2;
+        }
+        h2::before {
+            content: "🕸️ ";
+        }
+        h2::after {
+            content: " 🕸️";
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 2px solid #ff0000;
+        }
+        .confetti-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .confetti-button {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 3;
+        }
+        button {
+            background: #ff0000;
+            color: #fff;
+            border: 2px solid #000066;
+            padding: 12px 25px;
+            font-size: 18px;
+            font-family: 'Comic Neue', cursive;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 15px 0;
+            transition: transform 0.2s;
+            position: relative;
+            z-index: 4;
+        }
+        button:hover {
+            background: #cc0000;
+            transform: scale(1.1);
+        }
+        .friend-quotes-section {
+            margin: 80px 0 40px 0;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 4px solid #ff0000;
+            border-radius: 12px;
+            max-width: 900px;
+            margin: auto;
+            color: #000;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+            animation: pulse 3s ease-in-out infinite;
+            z-index: 2;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+        .friend-quotes {
+            list-style: none;
+            padding: 0;
+        }
+        .friend-quotes li {
+            text-align: left;
+            margin: 10px 0;
+            font-size: 1.2em;
+        }
+        .friend-quotes strong {
+            color: #ff0000;
+        }
+        .spider-dance-left, .spider-dance-right {
+            position: fixed;
+            top: 50%;
+            width: 250px;
+            height: auto;
+            z-index: 1;
+            opacity: 0.8;
+            border: 2px solid #ff0000;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            animation: dance 1s ease-in-out infinite alternate;
+        }
+        .spider-dance-left {
+            left: 10px;
+            transform: translateY(-50%);
+        }
+        .spider-dance-right {
+            right: 10px;
+            transform: translateY(-50%) scaleX(-1);
+        }
+        @keyframes dance {
+            from { transform: translateY(-50%) translateX(0); }
+            to { transform: translateY(-50%) translateX(5px); }
+        }
+        .spenerman-image {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 700px;
+            height: auto;
+            border: 3px solid #ff0000;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+            z-index: 5;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .spenerman-image.show {
+            display: block;
+            opacity: 1;
+        }
+        @media (max-width: 800px) {
+            body {
+                padding: 20px 220px;
+            }
+            .spider-dance-left, .spider-dance-right {
+                width: 200px;
+            }
+            h1 {
+                font-size: 2.5em;
+            }
+            section, .friend-quotes-section {
+                max-width: 100%;
+                padding: 10px;
+            }
+            .friend-quotes li {
+                font-size: 1.1em;
+            }
+            header {
+                padding: 20px;
+            }
+            header::before {
+                font-size: 80px;
+            }
+            .spenerman-image {
+                width: 500px;
+            }
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 20px 10px;
+            }
+            .spider-dance-left, .spider-dance-right {
+                width: 150px;
+                top: 10%;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            section, .friend-quotes-section {
+                margin: 10px 0;
+            }
+            button {
+                font-size: 16px;
+                padding: 10px 20px;
+            }
+            .spenerman-image {
+                width: 300px;
+            }
+        }
+        @media (max-width: 400px) {
+            .spider-dance-left, .spider-dance-right {
+                width: 100px;
+                top: 5%;
+            }
+            .spenerman-image {
+                width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>¡Feliz 19, Spider-Pablo!</h1>
+        <button id="confettiButton">Tirar Confeti</button>
+        <p>De tu colega: Un repaso por los momentazos que nos hemos marcado. ¡Eres el puto Spider-Man!</p>
+    </header>
+
+    <img src="data:image/gif;base64,REPLACE_WITH_SPIDERMAN_DANCE_BASE64" alt="Spider-Man bailando en el lado izquierdo" class="spider-dance-left" onerror="console.error('Error al cargar Spider-Man izquierdo (base64)')">
+    <img src="data:image/gif;base64,REPLACE_WITH_SPIDERMAN_DANCE_BASE64" alt="Spider-Man bailando en el lado derecho" class="spider-dance-right" onerror="console.error('Error al cargar Spider-Man derecho (base64)')">
+
+    <section>
+        <h2>Miles de Pastillas</h2>
+        <p>Esas partidas a Rocket League donde somos un desastre total. ¡"Miles de Pastillas" es la hostia de broma, aunque no metamos ni un gol pa’lante!</p>
+        <img src="https://via.placeholder.com/600x400?text=Rocket+League+desastre" alt="Pablo y amigos jugando Rocket League">
+    </section>
+
+    <section>
+        <h2>Tardes de Red Label en casa del Alemán</h2>
+        <p>Esas tardes épicas con Red Label y charlas en casa del Alemán. El mejor sitio pa desconectar y echarnos unas risas.</p>
+        <img src="https://via.placeholder.com/600x400?text=Tardes+en+casa+del+Alemán" alt="Tardes con Red Label en casa del Alemán">
+    </section>
+
+    <section>
+        <h2>Cuando flipé con que eres Spider-Man</h2>
+        <p>El día que "pillamos" que eres Spider-Man fue la caña. Cada plan contigo es como una peli de Marvel. ¡No se lo cuentes a nadie, crack!</p>
+        <img src="https://via.placeholder.com/600x400?text=Pablo+es+Spider-Man" alt="Pablo como Spider-Man">
+    </section>
+
+    <section>
+        <h2>Noches de juerga</h2>
+        <p>Esas noches de liarla parda, bailando como si nos diera igual todo y riéndonos hasta reventar. ¡Contigo cualquier noche es un fiestón!</p>
+        <img src="https://via.placeholder.com/600x400?text=Noches+de+juerga" alt="Noches de juerga con Pablo">
+    </section>
+
+    <section>
+        <h2>Charlas de las buenas</h2>
+        <p>Esas charlas a fondo sobre la vida, lo que molaría hacer y todo lo que nos pasa. Eres el colega con el que siempre mola hablar en serio. ¡Eso es oro!</p>
+        <img src="https://via.placeholder.com/600x400?text=Charlas+reflexivas" alt="Charlas profundas con Pablo">
+    </section>
+
+    <section class="friend-quotes-section">
+        <h2>Frases de los Colegas</h2>
+        <ul class="friend-quotes">
+            <li><strong>Guty</strong>: Curilingus cilíndrico con extremo derecho 🕸️</li>
+            <li><strong>Fran</strong>: El dinero que he puesto para el regalo me lo dió Spiderman 🕸️</li>
+            <li><strong>Sergio</strong>: De tu amigo y vecino Spiderman 🕸️</li>
+            <li><strong>Abel</strong>: Pibderman se baña en su pibcina 🕸️</li>
+            <li><strong>Poten</strong>: GUADALPARK GO GO GO 🕸️</li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>¡Que este año sea la hostia, Pablo! A seguir petándolo juntos. Un abrazo, tu colega. 🕸️</p>
+    </footer>
+
+    <section>
+        <button id="spenermanButton">Para las noches divertidas</button>
+    </section>
+
+    <img src="data:image/jpeg;base64,REPLACE_WITH_SPENERMAN_BASE64" alt="Spenerman para las noches divertidas" class="spenerman-image" id="spenermanImage" onerror="console.error('Error al cargar Spenerman (base64)')">
+    <audio id="caminandoSound" src="data:audio/mp3;base64,REPLACE_WITH_CAMINANDO_BASE64" preload="auto"></audio>
+
+    <canvas id="confettiBackground" class="confetti-background"></canvas>
+    <canvas id="confettiButtonCanvas" class="confetti-button"></canvas>
+    <script>
+        // Forzar carga de audio en móviles
+        document.addEventListener('touchstart', () => {
+            const caminandoSound = document.getElementById('caminandoSound');
+            caminandoSound.load();
+        }, { once: true });
+
+        const canvasBg = document.getElementById('confettiBackground');
+        const ctxBg = canvasBg.getContext('2d');
+        canvasBg.width = window.innerWidth;
+        canvasBg.height = window.innerHeight;
+
+        const canvasButton = document.getElementById('confettiButtonCanvas');
+        const ctxButton = canvasButton.getContext('2d');
+        canvasButton.width = window.innerWidth;
+        canvasButton.height = window.innerHeight;
+
+        const backgroundConfetti = [];
+        for (let i = 0; i < 100; i++) {
+            backgroundConfetti.push({
+                x: Math.random() * canvasBg.width,
+                y: Math.random() * canvasBg.height - canvasBg.height,
+                color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+                size: Math.random() * 5 + 5,
+                speed: Math.random() * 3 + 2
+            });
+        }
+
+        const buttonConfetti = [];
+        const confettiButton = document.getElementById('confettiButton');
+
+        function createButtonConfetti() {
+            for (let i = 0; i < 150; i++) {
+                const angle = Math.random() * 2 * Math.PI;
+                const speed = Math.random() * 12 + 6;
+                buttonConfetti.push({
+                    x: canvasButton.width / 2,
+                    y: canvasButton.height / 4,
+                    color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+                    size: Math.random() * 6 + 4,
+                    speedX: Math.cos(angle) * speed,
+                    speedY: Math.sin(angle) * speed - 6,
+                    life: 200
+                });
+            }
+        }
+
+        confettiButton.addEventListener('click', () => {
+            createButtonConfetti();
+        });
+
+        const spenermanButton = document.getElementById('spenermanButton');
+        const spenermanImage = document.getElementById('spenermanImage');
+        const caminandoSound = document.getElementById('caminandoSound');
+
+        // Verificar si el audio se carga correctamente
+        caminandoSound.addEventListener('error', () => {
+            console.error('Error al cargar el archivo de audio (base64)');
+        });
+
+        spenermanButton.addEventListener('click', () => {
+            caminandoSound.play().catch(error => {
+                console.error('Error al reproducir el sonido:', error);
+            });
+            spenermanImage.style.display = 'block';
+            setTimeout(() => {
+                spenermanImage.classList.add('show');
+            }, 10); // Pequeño retraso para asegurar que la transición se aplique
+            setTimeout(() => {
+                spenermanImage.classList.remove('show');
+                setTimeout(() => {
+                    spenermanImage.style.display = 'none';
+                }, 1000); // Espera a que termine el fade-out antes de ocultar
+            }, 3000);
+        });
+
+        function draw() {
+            ctxBg.clearRect(0, 0, canvasBg.width, canvasBg.height);
+            ctxButton.clearRect(0, 0, canvasButton.width, canvasButton.height);
+
+            backgroundConfetti.forEach(piece => {
+                ctxBg.fillStyle = piece.color;
+                ctxBg.fillRect(piece.x, piece.y, piece.size, piece.size);
+                piece.y += piece.speed;
+                if (piece.y > canvasBg.height) {
+                    piece.y = -piece.size;
+                }
+            });
+
+            buttonConfetti.forEach((piece, index) => {
+                if (piece.life > 0) {
+                    ctxButton.fillStyle = piece.color;
+                    ctxButton.fillRect(piece.x, piece.y, piece.size, piece.size);
+                    piece.x += piece.speedX;
+                    piece.y += piece.speedY;
+                    piece.speedY += 0.2;
+                    piece.speedX *= 0.98;
+                    piece.life--;
+                } else {
+                    buttonConfetti.splice(index, 1);
+                }
+            });
+
+            requestAnimationFrame(draw);
+        }
+
+        window.addEventListener('resize', () => {
+            canvasBg.width = window.innerWidth;
+            canvasBg.height = window.innerHeight;
+            canvasButton.width = window.innerWidth;
+            canvasButton.height = window.innerHeight;
+        });
+
+        draw();
+    </script>
+</body>
+</html>
